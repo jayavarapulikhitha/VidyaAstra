@@ -4,6 +4,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 
 // Import your components
 import LandingPage from './Components/LandingPage';
+import LoginPage from './Components/LoginPage';
 
 // Import your CSS files
 import './Components/LandingPage.css';
@@ -22,7 +23,7 @@ function App() {
       <Routes>
         {/* Route for the landing page */}
         <Route path="/" element={<LandingPage onStart={handleStartExpedition} />} />
-
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </div>
   );

@@ -141,15 +141,7 @@ const LandingPage = () => {
                 {/* FAQ Section (New) */}
                 <FAQSection />
 
-                {/* Final Call to Action */}
-                <section className="cta-final-section">
-                    <h2 className="cta-title">Ready to Conquer Your Exam?</h2>
-                    <p className="cta-subtitle">Join thousands of successful aspirants and begin your journey to excellence.</p>
-                    <NavLink to="/login" className="start-button pulsate-glow">
-                        Begin Your Expedition!
-                        <span className="arrow-icon">→</span>
-                    </NavLink>
-                </section>
+                
             </main>
 
             {/* Footer */}
