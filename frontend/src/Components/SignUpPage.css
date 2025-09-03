@@ -1,0 +1,280 @@
+@import './LandingPage.css';
+
+/* Container */
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--primary-bg);
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* Card */
+.signup-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 25px;
+    padding: 50px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    transform: translateY(-20px);
+    opacity: 0;
+    animation: cardSlideIn 1s ease-out forwards;
+}
+
+@keyframes cardSlideIn {
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.signup-logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.signup-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2em;
+    color: var(--accent-gold);
+    margin-bottom: 10px;
+}
+
+.signup-subtitle {
+    font-size: 1.1em;
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+/* Form */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.signup-form input {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 10px;
+    padding: 15px 20px;
+    color: var(--text-light);
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+
+.signup-form input::placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+.signup-form input:focus {
+    outline: none;
+    background: rgba(255,255,255,0.2);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 10px rgba(0,255,209,0.4);
+}
+
+/* Buttons */
+.signup-button {
+    border: none;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.email-signup-btn {
+    background: linear-gradient(90deg, var(--button-gradient-start), var(--button-gradient-end));
+    color: var(--button-text);
+    box-shadow: 0 5px 20px rgba(255,107,107,0.4);
+}
+
+.email-signup-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255,107,107,0.6);
+}
+
+/* Divider */
+.social-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+    opacity: 0.6;
+}
+
+.social-divider hr {
+    flex-grow: 1;
+    border: none;
+    height: 1px;
+    background-color: rgba(255,255,255,0.2);
+}
+
+.social-divider span {
+    font-size: 0.9em;
+}
+
+/* Social Buttons */
+.social-signup-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Reuse styles from login page */
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Icon size */
+.social-button i {
+    font-size: 1.2em;
+}
+
+/* Hover Effects */
+.social-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255,255,255,0.4);
+}
+
+.google-btn:hover {
+    background: rgba(219,68,55,0.3);
+    box-shadow: 0 5px 20px rgba(219,68,55,0.6);
+}
+.linkedin-btn:hover {
+    background: rgba(0,119,181,0.3);
+    box-shadow: 0 5px 20px rgba(0,119,181,0.6);
+}
+.github-btn:hover {
+    background: rgba(51,51,51,0.3);
+    box-shadow: 0 5px 20px rgba(51,51,51,0.6);
+}
+
+
+/* Social Buttons Glowing Effects - Shared for Login & Sign Up */
+
+.social-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 25px 0;
+}
+.social-divider hr {
+    flex: 1;
+    border: none;
+    height: 1px;
+    background: rgba(255,255,255,0.3);
+}
+.social-divider span {
+    font-size: 0.9em;
+    opacity: 0.7;
+}
+
+.social-login-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.social-button img.social-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.social-button.google:hover { background: rgba(219,68,55,0.3); }
+.social-button.linkedin:hover { background: rgba(0,119,181,0.3); }
+.social-button.github:hover { background: rgba(51,51,51,0.3); }
+
+/* Social Buttons Base */
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Icon Size */
+.social-button img.social-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Hover Effect with Glow and Lift */
+.social-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.4);
+}
+
+/* Color-specific glows */
+.social-button.google:hover {
+    background: rgba(219,68,55,0.3);
+    box-shadow: 0 5px 20px rgba(219,68,55,0.6);
+}
+.social-button.linkedin:hover {
+    background: rgba(0,119,181,0.3);
+    box-shadow: 0 5px 20px rgba(0,119,181,0.6);
+}
+.social-button.github:hover {
+    background: rgba(51,51,51,0.3);
+    box-shadow: 0 5px 20px rgba(51,51,51,0.6);
+}
+
+/* Optional: small ripple effect on click */
+.social-button:active::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50px;
+    top: 0;
+    left: 0;
+}

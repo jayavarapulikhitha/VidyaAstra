@@ -31,38 +31,6 @@ body {
     user-select: none;
 }
 
-/* --- Dynamic Background Elements --- */
-.star-field, .gradient-overlay, .abstract-pattern-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-.star-field { animation: sparkle 15s infinite alternate; }
-.star-field::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 1px, transparent 0),
-                      radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.1) 1px, transparent 0),
-                      radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.15) 1.5px, transparent 0);
-    background-size: 300px 300px, 400px 400px, 200px 200px;
-    animation: moveStars 60s linear infinite;
-}
-.gradient-overlay { background: radial-gradient(circle at center, rgba(15, 12, 41, 0) 0%, var(--primary-bg) 70%); }
-.abstract-pattern-overlay {
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M0 0h30v15H0V0zm0 30h30v15H0V30zM30 15h30v15H30V15zM30 45h30v15H30V45z'/%3E%3C/g%3E%3C/svg%3E");
-    background-repeat: repeat;
-    opacity: 0.05;
-    animation: rotatePattern 120s linear infinite;
-}
-
 /* --- Header & Navigation --- */
 .landing-header {
     padding: 20px 40px;
@@ -387,3 +355,114 @@ body {
 @keyframes buttonEntrance { 0% { opacity: 0; transform: translateY(50px); } 100% { opacity: 1; transform: translateY(0); } }
 @keyframes rotatePattern { from { background-position: 0 0; } to { background-position: 60px 60px; } }
 @keyframes cardSlideUp { 0% { opacity: 0; transform: translateY(50px); } 100% { opacity: 1; transform: translateY(0); } }
+/* --- Navbar Auth Links --- */
+.auth-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-left: auto; /* pushes to right */
+}
+
+/* Common button styling */
+.auth-link-primary,
+.auth-link-secondary {
+    position: relative;
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-size: 1em;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* Floating glow animation */
+@keyframes pulse-glow {
+    0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
+    100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+}
+
+/* --- Navbar Auth Links --- */
+.auth-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-left: auto; /* stays aligned right */
+}
+
+/* Base Button */
+.auth-link-primary,
+.auth-link-secondary {
+    position: relative;
+    padding: 10px 26px;
+    border-radius: 30px;
+    font-size: 1em;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    overflow: hidden;
+}
+
+/* Sign Up (Gradient Glow with Animation) */
+.auth-link-primary {
+    background: linear-gradient(270deg, #ff6b6b, #ff9500, #ff6b6b);
+    background-size: 300% 300%;
+    color: white;
+    box-shadow: 0 6px 18px rgba(255, 107, 107, 0.6);
+    animation: gradient-flow 6s ease infinite;
+}
+.auth-link-primary:hover {
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 10px 28px rgba(255, 107, 107, 0.9);
+}
+
+/* Moving Gradient Animation */
+@keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Log In (Glassmorphism Effect) */
+.auth-link-secondary {
+    border: 2px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 255, 209, 0.2);
+}
+.auth-link-secondary:hover {
+    background: rgba(0, 255, 209, 0.15);
+    color: #00ffe7;
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 8px 20px rgba(0, 255, 209, 0.5);
+}
+
+/* Hover Shine Effect */
+.auth-link-primary::after,
+.auth-link-secondary::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: skewX(-25deg);
+    transition: 0.5s;
+}
+.auth-link-primary:hover::after,
+.auth-link-secondary:hover::after {
+    left: 120%;
+}
+
+/* Separator */
+.auth-separator {
+    color: var(--text-light);
+    font-size: 1.1em;
+    opacity: 0.6;
+}

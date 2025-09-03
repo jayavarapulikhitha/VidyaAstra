@@ -18,7 +18,7 @@ const FAQSection = () => {
         {
             question: "Is the content updated with latest syllabus?",
             answer:
-                "Absolutely. Our content team constantly updates questions and study materials based on changing exam patterns and syllabi. You'll also receive notifications about important updates."
+            "Absolutely. Our content team constantly updates questions and study materials based on changing exam patterns and syllabi. You'll also receive notifications about important updates."
         },
         {
             question: "How does the coin system work?",
@@ -56,12 +56,8 @@ const FAQSection = () => {
 const LandingPage = () => {
     return (
         <div className="landing-container">
-            {/* --- Dynamic Background Elements --- */}
-            <div className="star-field"></div>
-            <div className="gradient-overlay"></div>
-            <div className="abstract-pattern-overlay"></div>
+            {/* The problematic background elements are no longer included */}
 
-            {/* Header with Navigation & CTA */}
             <header className="landing-header">
                 <div className="header-left">
                     <img src={appLogo} alt="VidyaAstra Logo" className="app-logo" />
@@ -72,24 +68,27 @@ const LandingPage = () => {
                     <a href="#about" className="nav-link">About Us</a>
                     <a href="#testimonials" className="nav-link">Testimonials</a>
                     <a href="#faq" className="nav-link">FAQ</a>
-                    <NavLink to="/login" className="nav-cta-button">
-                        Get Started
-                    </NavLink>
+                <div className="auth-links">
+                  <a href="/signup" className="auth-link-primary">Sign Up</a>
+                  <span className="auth-separator">|</span>
+                  <a href="/login" className="auth-link-secondary">Log In</a>
+                </div>
+                
                 </nav>
             </header>
 
             <main className="landing-main">
-                {/* Hero Section */}
                 <section className="hero-section">
                     <h1 className="hero-headline">VidyaAstra: Your Path to UPSC Excellence</h1>
                     <p className="hero-subheading">Forge your knowledge. Sharpen your skills. Achieve your dreams.</p>
-                    <NavLink to="/login" className="start-button pulsate-glow">
-                        Begin Your Grand Expedition!
-                        <span className="arrow-icon">→</span>
-                    </NavLink>
+                    <div className="hero-cta-buttons">
+                        <NavLink to="/auth" className="start-button pulsate-glow">
+                            Join the Expedition!
+                            <span className="arrow-icon">→</span>
+                        </NavLink>
+                    </div>
                 </section>
 
-                {/* Features Section */}
                 <section id="features" className="features-section">
                     <h2 className="section-title">Key Features</h2>
                     <div className="feature-highlight">
@@ -111,7 +110,6 @@ const LandingPage = () => {
                     </div>
                 </section>
 
-                {/* Testimonials Section */}
                 <section id="testimonials" className="testimonials-section">
                     <h2 className="section-title">What Our Scholars Say</h2>
                     <div className="testimonials-container">
@@ -130,7 +128,6 @@ const LandingPage = () => {
                     </div>
                 </section>
 
-                {/* About Section */}
                 <section id="about" className="about-us-section">
                     <h2 className="section-title">Our Mission</h2>
                     <div className="about-content">
@@ -138,21 +135,21 @@ const LandingPage = () => {
                     </div>
                 </section>
 
-                {/* FAQ Section (New) */}
                 <FAQSection />
 
-                {/* Final Call to Action */}
                 <section className="cta-final-section">
                     <h2 className="cta-title">Ready to Conquer Your Exam?</h2>
                     <p className="cta-subtitle">Join thousands of successful aspirants and begin your journey to excellence.</p>
-                    <NavLink to="/login" className="start-button pulsate-glow">
-                        Begin Your Expedition!
-                        <span className="arrow-icon">→</span>
-                    </NavLink>
+                    <div className="hero-cta-buttons">
+                        <NavLink to="/auth" className="start-button pulsate-glow">
+                            Sign Up Now
+                            <span className="arrow-icon">→</span>
+                        </NavLink>
+                    </div>
                 </section>
             </main>
 
-            {/* Footer */}
+
             <footer className="landing-footer">
                 <div className="footer-links-container">
                     <a href="/privacy-policy" className="footer-link">Privacy Policy</a>

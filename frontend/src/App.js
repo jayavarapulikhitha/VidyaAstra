@@ -1,28 +1,28 @@
-// src/App.js
 import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 // Import your components
 import LandingPage from './Components/LandingPage';
+import LoginPage from './Components/LoginPage';
+import SignUpPage from './Components/SignUpPage';
 
 // Import your CSS files
 import './Components/LandingPage.css';
+import './Components/LoginPage.css';
+import './Components/SignUpPage.css';
 
 function App() {
-  const navigate = useNavigate();
-
-  // You can decide where the main button on the landing page goes.
-  // I'll make it go to the signup page for the first user journey.
-  const handleStartExpedition = () => {
-    navigate('/signup');
-  };
-
   return (
     <div className="App">
       <Routes>
-        {/* Route for the landing page */}
-        <Route path="/" element={<LandingPage onStart={handleStartExpedition} />} />
+        {/* Main landing page */}
+        <Route path="/" element={<LandingPage />} />
 
+        {/* Login page */}
+        <Route path="/login" element={<LoginPage />} />
+
+        {/* Signup page */}
+        <Route path="/signup" element={<SignUpPage />} />
       </Routes>
     </div>
   );
