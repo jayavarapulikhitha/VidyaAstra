@@ -7,28 +7,23 @@ const FAQSection = () => {
     const faqs = [
         {
             question: "How is VidyaAstra different from other prep apps?",
-            answer:
-                "VidyaAstra focuses on gamification to make learning engaging rather than a chore. Our unique features like the Dead Manager, AI Study Buddy, and Boss Battle mock tests create an immersive experience that keeps you motivated."
+            answer: "VidyaAstra focuses on gamification to make learning engaging rather than a chore. Our unique features like the Dead Manager, AI Study Buddy, and Boss Battle mock tests create an immersive experience that keeps you motivated."
         },
         {
             question: "Can I use VidyaAstra for multiple exams?",
-            answer:
-                "Yes! You can switch between exam preparation tracks or prepare for multiple exams simultaneously. Our system will create separate roadmaps and track progress for each exam."
+            answer: "Yes! You can switch between exam preparation tracks or prepare for multiple exams simultaneously. Our system will create separate roadmaps and track progress for each exam."
         },
         {
             question: "Is the content updated with latest syllabus?",
-            answer:
-            "Absolutely. Our content team constantly updates questions and study materials based on changing exam patterns and syllabi. You'll also receive notifications about important updates."
+            answer: "Absolutely. Our content team constantly updates questions and study materials based on changing exam patterns and syllabi. You'll also receive notifications about important updates."
         },
         {
             question: "How does the coin system work?",
-            answer:
-                "You earn coins by completing daily tasks, winning contests, helping other students, and maintaining streaks. These coins can be used to unlock premium features, get expert doubt solutions, or access special content."
+            answer: "You earn coins by completing daily tasks, winning contests, helping other students, and maintaining streaks. These coins can be used to unlock premium features, get expert doubt solutions, or access special content."
         }
     ];
 
     const [openIndex, setOpenIndex] = useState(null);
-
     const toggleFAQ = (index) => {
         setOpenIndex(openIndex === index ? null : index);
     };
@@ -56,8 +51,6 @@ const FAQSection = () => {
 const LandingPage = () => {
     return (
         <div className="landing-container">
-            {/* The problematic background elements are no longer included */}
-
             <header className="landing-header">
                 <div className="header-left">
                     <img src={appLogo} alt="VidyaAstra Logo" className="app-logo" />
@@ -68,12 +61,11 @@ const LandingPage = () => {
                     <a href="#about" className="nav-link">About Us</a>
                     <a href="#testimonials" className="nav-link">Testimonials</a>
                     <a href="#faq" className="nav-link">FAQ</a>
-                <div className="auth-links">
-                  <a href="/signup" className="auth-link-primary">Sign Up</a>
-                  <span className="auth-separator">|</span>
-                  <a href="/login" className="auth-link-secondary">Log In</a>
-                </div>
-                
+                    <div className="auth-links">
+                        <a href="/signup" className="auth-link-primary">Sign Up</a>
+                        <span className="auth-separator">|</span>
+                        <a href="/login" className="auth-link-secondary">Log In</a>
+                    </div>
                 </nav>
             </header>
 
@@ -148,7 +140,6 @@ const LandingPage = () => {
                     </div>
                 </section>
             </main>
-
 
             <footer className="landing-footer">
                 <div className="footer-links-container">

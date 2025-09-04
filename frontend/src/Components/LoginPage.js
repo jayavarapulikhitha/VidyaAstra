@@ -9,22 +9,42 @@ const LoginPage = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleEmailLogin = (e) => {
+    const handleEmailLogin = async (e) => {
         e.preventDefault();
-        const isLoginSuccessful = true;
-        if (isLoginSuccessful) navigate('/dashboard');
-        else setError('Invalid credentials');
+        setError('');
+
+        console.log('Attempting email login with:', email, password);
+
+        try {
+            const isLoginSuccessful = true; // Placeholder for backend logic
+            if (isLoginSuccessful) {
+                console.log('Email login successful!');
+                navigate('/dashboard');
+            } else {
+                setError('Invalid email or password.');
+            }
+        } catch (err) {
+            setError('Login failed. Please check your credentials.');
+            console.error(err);
+        }
     };
 
     const handleSocialLogin = (provider) => {
-        console.log(`Login with ${provider}`);
-        navigate('/dashboard');
+        console.log(`Attempting login with ${provider}...`);
+        setTimeout(() => {
+            console.log(`${provider} login successful!`);
+            navigate('/dashboard');
+        }, 1000);
     };
 
     return (
         <div className="login-container">
+            {/* Optional background decorations */}
+            <div className="star-field"></div>
+            <div className="gradient-overlay"></div>
+            <div className="abstract-pattern-overlay"></div>
+
             <div className="login-card">
-                {/* Logo + Project Name */}
                 <div className="login-header">
                     <img src={appLogo} alt="Logo" className="login-logo" />
                     <h1 className="project-name">VidyaAstra</h1>
@@ -34,40 +54,37 @@ const LoginPage = () => {
 
                 {error && <div className="login-error-message">{error}</div>}
 
-                {/* Email Login Form */}
                 <form onSubmit={handleEmailLogin} className="login-form">
-                    <input 
-                        type="email" 
-                        placeholder="Email" 
-                        value={email} 
-                        onChange={(e)=>setEmail(e.target.value)}
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Email"
                         required
                     />
-                    <input 
-                        type="password" 
-                        placeholder="Password" 
-                        value={password} 
-                        onChange={(e)=>setPassword(e.target.value)}
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
                         required
                     />
                     <button type="submit" className="login-button">Sign In</button>
                 </form>
 
-                {/* OR Divider */}
                 <div className="social-divider">
                     <hr /><span>OR</span><hr />
                 </div>
 
-                {/* Social Buttons */}
                 <div className="social-login-buttons">
-                    <button className="social-button google" onClick={()=>handleSocialLogin('Google')}>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" className="social-icon" alt="Google"/> Sign in with Google
+                    <button className="social-button google" onClick={() => handleSocialLogin('Google')}>
+                        Sign in with Google
                     </button>
-                    <button className="social-button linkedin" onClick={()=>handleSocialLogin('LinkedIn')}>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" className="social-icon" alt="LinkedIn"/> Sign in with LinkedIn
+                    <button className="social-button linkedin" onClick={() => handleSocialLogin('LinkedIn')}>
+                        Sign in with LinkedIn
                     </button>
-                    <button className="social-button github" onClick={()=>handleSocialLogin('GitHub')}>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" className="social-icon" alt="GitHub"/> Sign in with GitHub
+                    <button className="social-button github" onClick={() => handleSocialLogin('GitHub')}>
+                        Sign in with GitHub
                     </button>
                 </div>
             </div>
