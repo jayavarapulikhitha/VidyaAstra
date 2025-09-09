@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import appLogo from '../assets/app-logo.png';
 import './LandingPage.css';
+import './SignUpPage';
 
 const FAQSection = () => {
     const faqs = [
@@ -74,7 +75,7 @@ const LandingPage = () => {
                     <h1 className="hero-headline">VidyaAstra: Your Path to UPSC Excellence</h1>
                     <p className="hero-subheading">Forge your knowledge. Sharpen your skills. Achieve your dreams.</p>
                     <div className="hero-cta-buttons">
-                        <NavLink to="/auth" className="start-button pulsate-glow">
+                        <NavLink to="/signup" className="start-button pulsate-glow">
                             Join the Expedition!
                             <span className="arrow-icon">→</span>
                         </NavLink>

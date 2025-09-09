@@ -466,3 +466,43 @@ body {
     font-size: 1.1em;
     opacity: 0.6;
 }
+
+/* --- Floating Animation for Feature Cards --- */
+.feature-card {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* --- Shimmer Effect for Section Titles --- */
+.section-title {
+    background: linear-gradient(90deg, var(--accent-gold), var(--accent-cyan), var(--accent-gold));
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* --- Stronger Button Hover Glow --- */
+.start-button:hover {
+    transform: translateY(-8px) scale(1.06);
+    box-shadow: 0 30px 60px rgba(255, 107, 107, 0.8), 0 0 50px var(--accent-cyan);
+    background: linear-gradient(90deg, #FF4F4F 0%, #FF9500 100%);
+}
+
+/* --- Slightly More Gap for Breathing Space --- */
+.feature-highlight { gap: 50px; }
+.testimonials-container { gap: 40px; }
+
+/* --- Improve Hero Subheading Text Legibility --- */
+.hero-subheading {
+    text-shadow: 0 0 10px rgba(0, 255, 209, 0.3);
+}

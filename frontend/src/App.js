@@ -1,30 +1,47 @@
-// src/App.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-// Import your components
+// Components
 import LandingPage from './Components/LandingPage';
 import LoginPage from './Components/LoginPage';
 import SignUpPage from './Components/SignUpPage';
-
-// Import CSS (optional)
-import './Components/LandingPage.css';
-import './Components/LoginPage.css';
-import './Components/SignUpPage.css';
+import StreamSelectionPage from './Components/StreamSelectionPage';
+import HomePage from './Components/HomePageUpsc';
+import DashboardUpsc from './Components/DashboardUpsc';
 
 function App() {
-  return (
-    <Routes>
-      {/* Main landing page */}
-      <Route path="/" element={<LandingPage />} />
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [hasSelectedStream, setHasSelectedStream] = useState(false);
 
-      {/* Login page */}
-      <Route path="/login" element={<LoginPage />} />
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const streamSelected = localStorage.getItem('hasSelectedStream') === 'true';
+    setIsLoggedIn(loggedIn);
+    setHasSelectedStream(streamSelected);
+  }, []);
 
-      {/* Sign-up page */}
-      <Route path="/signup" element={<SignUpPage />} />
-    </Routes>
-  );
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route
+        path="/login"
+        element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
+      />
+      <Route
+        path="/signup"
+        element={<SignUpPage setIsLoggedIn={setIsLoggedIn} />}
+      />
+      <Route
+        path="/stream-selection"
+        element={
+          <StreamSelectionPage setHasSelectedStream={setHasSelectedStream} />
+        }
+      />
+      <Route path="/home" element={<HomePage />} />
+      <Route path="/dashboard-upsc" element={<DashboardUpsc />} />
+      <Route path="*" element={<LandingPage />} />
+    </Routes>
+  );
 }
 
 export default App;

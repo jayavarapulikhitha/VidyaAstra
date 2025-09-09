@@ -1,7 +1,8 @@
+// src/Components/SignUpPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import appLogo from '../assets/app-logo.png';
-import './LoginPage.css'; // reuse same styles
+import './LoginPage.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 
@@ -15,10 +16,15 @@ const SignUpPage = () => {
   const handleEmailSignUp = (e) => {
     e.preventDefault();
     setError('');
+
     // Replace with backend call
     const isSignUpSuccessful = true;
+
     if (isSignUpSuccessful) {
-      navigate('/dashboard');
+      // Save login status
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.removeItem('selectedStream'); // Ensure stream is selected later
+      navigate('/stream-selection'); // redirect to stream selection
     } else {
       setError('Sign Up failed. Try again.');
     }
@@ -26,7 +32,9 @@ const SignUpPage = () => {
 
   const handleSocialSignUp = (provider) => {
     console.log(`Sign Up with ${provider}`);
-    setTimeout(() => navigate('/dashboard'), 1000);
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.removeItem('selectedStream');
+    setTimeout(() => navigate('/stream-selection'), 500);
   };
 
   return (
