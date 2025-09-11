@@ -2,28 +2,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
   Trophy,
-  Zap,
-  BookOpen,
-  Award,
-  Star,
-  Play,
+  Map,
   MessageCircle,
-  Calendar,
   Search,
-  GraduationCap,
-  Newspaper,
+  X,
+  Clock,
   Lightbulb,
-  X
+  ClipboardList,
+  FlaskConical,
+  Swords,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./HomePageUpsc.css";
 
 const HomePageUpsc = () => {
-  const [currentEnergy] = useState(85);
-  const [currentStreak] = useState(7);
-  const [totalCoins] = useState(1250);
-  const [currentLevel] = useState(12);
-  const [userName] = useState("Arjun");
+  const [userName] = useState("Tejaswini");
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -40,41 +33,53 @@ const HomePageUpsc = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
- // CHANGE THIS FUNCTION:
-const handleOptionClick = (option) => {
-  setDropdownOpen(false);
-  if (option === "profile") {
-    navigate("/dashboard-upsc");
-  } else if (option === "settings") {
-    alert("Settings Page Coming Soon!");
-  } else if (option === "logout") {
-    alert("Logged out!");
-  }
-};
-
-
+  const handleOptionClick = (option) => {
+    setDropdownOpen(false);
+    if (option === "profile") {
+      navigate("/dashboard-upsc");
+    } else if (option === "settings") {
+      alert("Settings Page Coming Soon!");
+    } else if (option === "logout") {
+      alert("Logged out!");
+    }
+  };
 
   // Dummy data
-  const upcomingContests = [
-    { id: 1, name: "Weekly History Battle", date: "Tomorrow", time: "6:00 PM", participants: 2341 },
-    { id: 2, name: "Current Affairs Lightning", date: "Sep 7", time: "8:00 PM", participants: 1876 },
-    { id: 3, name: "Monthly Mega Quiz", date: "Sep 15", time: "7:00 PM", participants: 5234 },
+  const personalDeadlines = [
+    { name: "Finish Polity Basics", daysLeft: 3 },
+    { name: "Revise Modern History", daysLeft: 7 },
   ];
-  const nextExams = [
-    { name: "UPSC Prelims 2026", date: "May 25, 2026", daysLeft: 263 },
-    { name: "UPSC Mains 2026", date: "Sep 20, 2026", daysLeft: 381 },
+  const nextOfficialExams = [
+    { name: "UPSC Prelims 2026", daysLeft: 263 },
+    { name: "UPSC Mains 2026", daysLeft: 381 },
   ];
-  const articles = [
-    { id: 1, title: "India’s Freedom Struggle – Key Events", author: "Prof. Sharma", readTime: "5 min read" },
-    { id: 2, title: "Latest Current Affairs (Sep 2025)", author: "Editorial Team", readTime: "7 min read" },
-    { id: 3, title: "Polity Basics – Understanding Fundamental Rights", author: "Dr. Mehta", readTime: "6 min read" },
+  const todayRoadmap = [
+    { id: 1, task: "Solve 20 Current Affairs MCQs" },
+    { id: 2, task: "Watch Economy Crash Course" },
   ];
-  const classes = [
-    { id: 1, topic: "Economy Crash Course", date: "Sep 9, 2025", time: "6:30 PM", mentor: "Dr. Nair" },
-    { id: 2, topic: "Essay Writing Practice", date: "Sep 12, 2025", time: "7:00 PM", mentor: "Prof. Iyer" },
-    { id: 3, topic: "Environment & Ecology", date: "Sep 15, 2025", time: "5:00 PM", mentor: "Ms. Ritu" },
+  const nextContest = {
+    id: 1,
+    name: "Current Affairs Lightning",
+    date: "Tomorrow",
+    time: "8:00 PM",
+    participants: 1876,
+  };
+  const bossBattle = {
+    id: 1,
+    name: "Full-Length UPSC Prelims Mock",
+    topic: "Simulated Exam",
+    date: "Sep 20",
+    reward: "Gold Badge",
+  };
+  const dailyQuote =
+    "Success is not final, failure is not fatal: it is the courage to continue that counts. – Winston Churchill";
+  const leaderboardData = [
+    { rank: 1, name: "Rahul S.", points: 54321 },
+    { rank: 2, name: "Priya K.", points: 48912 },
+    { rank: 3, name: "You", points: 45001 },
+    { rank: 4, name: "Ananya P.", points: 41022 },
+    { rank: 5, name: "Vikram R.", points: 38911 },
   ];
-  const dailyTip = "Consistency beats intensity – 2 focused hours every day is better than 12 hours once a week.";
 
   return (
     <main className="dashboard-main">
@@ -86,11 +91,10 @@ const handleOptionClick = (option) => {
         </div>
 
         <nav className="header-nav">
-          <a href="/" className="nav-item">Home</a>
-          <a href="/contests" className="nav-item">Contests</a>
-          <a href="/exams" className="nav-item">Exams</a>
-          <a href="/articles" className="nav-item">Articles</a>
-          <a href="/classes" className="nav-item">Classes</a>
+          <div className="daily-quote-nav">
+            <Lightbulb size={20} />
+            <p className="quote-text-nav">{dailyQuote}</p>
+          </div>
         </nav>
 
         <div className="header-right" ref={profileRef}>
@@ -105,8 +109,15 @@ const handleOptionClick = (option) => {
           </div>
 
           {/* User Profile */}
-          <div className="user-profile" onClick={() => setDropdownOpen(!dropdownOpen)}>
-            <img className="profile-avatar" src="https://via.placeholder.com/38" alt="Avatar"/>
+          <div
+            className="user-profile"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          >
+            <img
+              className="profile-avatar"
+              src="https://via.placeholder.com/38"
+              alt="Avatar"
+            />
             <span>{userName}</span>
           </div>
 
@@ -114,12 +125,15 @@ const handleOptionClick = (option) => {
           <div className={`profile-dropdown ${dropdownOpen ? "open" : ""}`}>
             <div className="dropdown-header">
               <span>Hi, {userName}</span>
-              <button className="close-btn" onClick={() => setDropdownOpen(false)}>
-                <X size={18}/>
+              <button
+                className="close-btn"
+                onClick={() => setDropdownOpen(false)}
+              >
+                <X size={18} />
               </button>
             </div>
             <ul>
-              <li onClick={() => handleOptionClick("/DashboardUpsc")}>Profile</li>
+              <li onClick={() => handleOptionClick("profile")}>Dashboard</li>
               <li onClick={() => handleOptionClick("settings")}>Settings</li>
               <li onClick={() => handleOptionClick("logout")}>Logout</li>
             </ul>
@@ -127,111 +141,113 @@ const handleOptionClick = (option) => {
         </div>
       </header>
 
-      {/* Welcome Section */}
+      {/* Welcome Banner */}
       <section className="welcome-section">
-        <h2>Welcome back, {userName}! 🚀</h2>
+        <h2>Welcome back, {userName}!</h2>
         <p>Ready to conquer today?</p>
         <div className="quick-action-buttons">
-          <button className="quick-btn primary">
-            <Play size={16}/> Start Daily Quiz
+          <button className="quick-btn">
+            <ClipboardList size={20} />
+            Take Mock Test
           </button>
-          <button className="quick-btn secondary">
-            <BookOpen size={16}/> Continue Study
+          <button className="quick-btn">
+            <Trophy size={20} />
+            Join Contest
+          </button>
+          <button className="quick-btn">
+            <Map size={20} />
+            Roadmap
+          </button>
+          <button className="quick-btn">
+            <MessageCircle size={20} />
+            Doubts
           </button>
         </div>
       </section>
 
-      {/* Daily Tip */}
-      <section className="content-card tip-card">
-        <Lightbulb size={20}/> <strong>Daily Tip:</strong> {dailyTip}
-      </section>
-
-      {/* Stats Dashboard */}
-      <section className="stats-dashboard">
-        <div className="stat-card energy-card">
-          <h3>Energy</h3>
-          <div className="energy-bar">
-            <div className="energy-fill" style={{ width: `${currentEnergy}%` }}></div>
+      {/* Main Content Grid */}
+      <div className="main-content-grid">
+        {/* Upcoming Deadlines */}
+        <section className="content-card deadlines-card">
+          <h3>
+            <Clock size={18} /> Upcoming Deadlines
+          </h3>
+          <div className="item-list">
+            {[...personalDeadlines, ...nextOfficialExams].map(
+              (deadline, index) => (
+                <div key={index} className="item-card deadline-item">
+                  <h4>{deadline.name}</h4>
+                  <p>{deadline.daysLeft} days left</p>
+                </div>
+              )
+            )}
           </div>
-          <p>{currentEnergy}/100</p>
-        </div>
-        <div className="stat-card streak-card">
-          <h3>Streak</h3>
-          <p>{currentStreak} days</p>
-        </div>
-        <div className="stat-card coins-card">
-          <h3>Coins</h3>
-          <p>{totalCoins.toLocaleString()}</p>
-        </div>
-        <div className="stat-card level-card">
-          <h3>Level</h3>
-          <p>{currentLevel}</p>
-        </div>
-      </section>
+        </section>
 
-      {/* Articles Section */}
-      <section className="content-card articles-card">
-        <h3><Newspaper size={18}/> Featured Articles</h3>
-        <div className="grid-layout">
-          {articles.map(article => (
-            <div key={article.id} className="item-card">
-              <h4>{article.title}</h4>
-              <p>By {article.author}</p>
-              <span>{article.readTime}</span>
-              <button className="read-btn">Read</button>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* Today's Roadmap */}
+        <section className="content-card roadmap-card">
+          <h3>
+            <Map size={18} /> Today's Roadmap
+          </h3>
+          <div className="item-list">
+            {todayRoadmap.map((item) => (
+              <div key={item.id} className="item-card roadmap-item">
+                <h4>{item.task}</h4>
+                <button className="go-btn">Go</button>
+              </div>
+            ))}
+          </div>
+        </section>
 
-      {/* Classes Section */}
-      <section className="content-card classes-card">
-        <h3><GraduationCap size={18}/> Upcoming Classes</h3>
-        <div className="grid-layout">
-          {classes.map(cls => (
-            <div key={cls.id} className="item-card">
-              <h4>{cls.topic}</h4>
-              <p>{cls.date} • {cls.time}</p>
-              <span>Mentor: {cls.mentor}</span>
-              <button className="join-class-btn">Join</button>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* Global Leaderboard */}
+        <section className="content-card leaderboard-card">
+          <h3>
+            <Swords size={18} /> Global Leaderboard
+          </h3>
+          <div className="leaderboard-list">
+            {leaderboardData.map((user, index) => (
+              <div key={index} className="leaderboard-item">
+                <span className="rank">{user.rank}.</span>
+                <span className="user-name">{user.name}</span>
+                <span className="points">{user.points} pts</span>
+              </div>
+            ))}
+          </div>
+        </section>
 
-      {/* Contests Section */}
-      <section className="content-card contests-card">
-        <h3>Upcoming Contests</h3>
-        <div className="grid-layout">
-          {upcomingContests.map(contest => (
-            <div key={contest.id} className="item-card">
-              <h4>{contest.name}</h4>
-              <p>{contest.date} • {contest.time}</p>
-              <span>{contest.participants.toLocaleString()} participants</span>
-              <button className="join-contest-btn">Join</button>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* Next Contest */}
+        <section className="content-card contest-card-single">
+          <h3>
+            <Trophy size={18} /> Next Contest
+          </h3>
+          <div className="contest-details">
+            <h4>{nextContest.name}</h4>
+            <p>
+              {nextContest.date} • {nextContest.time}
+            </p>
+            <span>{nextContest.participants.toLocaleString()} participants</span>
+            <button className="join-btn">Join Now</button>
+          </div>
+        </section>
 
-      {/* Exam Deadlines Section */}
-      <section className="content-card deadlines-card">
-        <h3>Exam Deadlines</h3>
-        <div className="grid-layout">
-          {nextExams.map((exam, index) => (
-            <div key={index} className="item-card">
-              <h4>{exam.name}</h4>
-              <p>{exam.date}</p>
-              <span>{exam.daysLeft} days left</span>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* Boss Battle */}
+        <section className="content-card boss-battle-card">
+          <h3>
+            <FlaskConical size={18} /> Boss Battle
+          </h3>
+          <div className="boss-battle-details">
+            <h4>{bossBattle.name}</h4>
+            <p>Date: {bossBattle.date}</p>
+            <span>Reward: {bossBattle.reward}</span>
+            <button className="challenge-btn">Challenge!</button>
+          </div>
+        </section>
+      </div>
 
       {/* Chatbot Button */}
       <div className="chatbot-trigger">
         <button className="chatbot-btn">
-          <MessageCircle size={24}/>
+          <MessageCircle size={24} />
           Ask your AI Study Buddy
         </button>
       </div>

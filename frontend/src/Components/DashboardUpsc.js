@@ -1,388 +1,260 @@
+// src/Components/DashboardUpsc.js
 import React, { useState } from "react";
+import { motion } from "framer-motion";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import { Link } from "react-router-dom";  // <- Added for routing
 import {
-  Trophy,
-  Target,
-  Zap,
-  Calendar,
-  BookOpen,
-  Award,
-  Star,
-  Play,
-  MessageCircle,
-  TrendingUp,
+  Zap,
+  Star,
+  Trophy,
+  DollarSign,
+  Map,
+  ClipboardList,
+  MessageCircle,
+  Award,
+  CircleCheck,
+  Clock,
+  Swords,
+  Settings,
+  User,
+  Home
 } from "lucide-react";
-
-// The CSS is now included here in a string to prevent file-related errors.
-const dashboardStyles = `
-/* ===== General Layout ===== */
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    background: linear-gradient(135deg, #0F0C29 0%, #302B63 100%);
-    color: #E0FBFC;
-    overflow-x: hidden;
-}
-
-.dashboard-main {
-    padding: 25px;
-}
-
-/* ===== Welcome Section ===== */
-.welcome-section {
-    padding: 30px;
-    background: rgba(48, 43, 99, 0.6);
-    margin: 25px;
-    border-radius: 25px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    animation: fadeIn 1s ease-out forwards;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.welcome-section h2 {
-    margin: 0;
-    font-size: 32px;
-    font-weight: 700;
-    background: linear-gradient(90deg, #FFD700, #00FFD1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 10px #FFD700, 0 0 25px #00FFD1;
-}
-
-.welcome-section p {
-    margin: 10px 0 0;
-    font-size: 16px;
-    color: #E0FBFC;
-    text-shadow: 0 0 5px #00FFD1;
-}
-
-/* ===== Quick Action Buttons ===== */
-.quick-action-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.quick-btn {
-    padding: 16px 28px;
-    border-radius: 35px;
-    font-weight: 700;
-    font-size: 18px;
-    border: none;
-    cursor: pointer;
-    text-shadow: 0 0 3px rgba(0,0,0,0.5);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s ease;
-}
-
-.quick-btn.primary {
-    background: linear-gradient(90deg, #FF6B6B, #FFD700);
-    background-size: 200% 200%;
-    animation: gradientMove 3s ease infinite;
-    color: #0F0C29;
-}
-
-.quick-btn.secondary {
-    background: linear-gradient(90deg, #00FFD1, #4C6EF5);
-    background-size: 200% 200%;
-    animation: gradientMove 3s ease infinite;
-    color: #0F0C29;
-}
-
-.quick-btn:hover {
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 0 25px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.3);
-    filter: brightness(1.3);
-}
-
-/* ===== Stats Dashboard ===== */
-.stats-dashboard {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 25px;
-    padding: 20px;
-}
-
-.stat-card {
-    background: rgba(48, 43, 99, 0.6);
-    padding: 25px;
-    border-radius: 25px;
-    text-align: center;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-    transition: transform 0.4s, box-shadow 0.4s;
-    position: relative;
-    overflow: hidden;
-    color: #E0FBFC;
-}
-
-.stat-card:hover {
-    transform: translateY(-8px) scale(1.05);
-    box-shadow: 0 12px 35px rgba(0,255,209,0.3);
-}
-
-.stat-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-/* Energy Bar */
-.energy-bar {
-    height: 12px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 6px;
-    margin: 12px 0 0;
-    overflow: hidden;
-}
-
-.energy-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #FFD700, #FF6B6B);
-    border-radius: 6px;
-    transition: width 0.5s ease-in-out;
-}
-
-/* ===== Contests & Deadlines ===== */
-.content-card {
-    background: rgba(48, 43, 99, 0.6);
-    padding: 25px;
-    margin: 25px;
-    border-radius: 25px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-    transition: transform 0.4s, box-shadow 0.4s;
-    position: relative;
-}
-
-.content-card:hover {
-    transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 12px 40px rgba(255,255,255,0.2);
-}
-
-.card-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
-    font-weight: bold;
-}
-
-.contests-list,
-.deadlines-list {
-    display: grid;
-    gap: 15px;
-}
-
-.contest-item,
-.deadline-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.15);
-}
-
-.contest-info h4, .deadline-item h4 {
-    margin: 0;
-}
-
-.join-contest-btn {
-    background: linear-gradient(90deg, #FFD700, #FF6B6B);
-    color: #0F0C29;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 700;
-    transition: all 0.3s;
-}
-
-/* Chatbot */
-.chatbot-trigger {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    z-index: 50;
-}
-
-.chatbot-btn {
-    background: linear-gradient(90deg, #6f42c1, #4c6ef5);
-    color: white;
-    border: none;
-    padding: 16px 24px;
-    border-radius: 50px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-weight: 700;
-    box-shadow: 0 5px 35px rgba(255,255,255,0.3);
-    transition: all 0.3s;
-}
-
-.chatbot-btn:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 10px 40px rgba(255,255,255,0.5);
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-    .stats-dashboard {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    }
-
-    .welcome-section, .content-card, .tip-card {
-        margin: 15px;
-        padding: 15px;
-    }
-
-    .quick-action-buttons {
-        flex-direction: column;
-    }
-
-    .contest-item, .deadline-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-}
-`;
+import "./DashboardUpsc.css";
 
 const DashboardUpsc = () => {
-  const [currentEnergy] = useState(85);
-  const [currentStreak] = useState(7);
-  const [totalCoins] = useState(1250);
-  const [currentLevel] = useState(12);
-  const [userName] = useState("Arjun");
+  const [userName] = useState("Arjun");
+  const [currentEnergy] = useState(75);
+  const [currentStreak] = useState(5);
+  const [totalCoins] = useState(1500);
+  const [currentLevel] = useState(12);
+  const [calendarDate, setCalendarDate] = useState(new Date());
 
-  const upcomingContests = [
-    { id: 1, name: "Weekly History Battle", date: "Tomorrow", time: "6:00 PM", participants: 2341 },
-    { id: 2, name: "Current Affairs Lightning", date: "Sep 7", time: "8:00 PM", participants: 1876 },
-    { id: 3, name: "Monthly Mega Quiz", date: "Sep 15", time: "7:00 PM", participants: 5234 },
-  ];
+  const streakDates = [
+    new Date("2025-09-08"),
+    new Date("2025-09-09"),
+    new Date("2025-09-10"),
+  ];
 
-  const nextExams = [
-    { name: "UPSC Prelims 2026", date: "May 25, 2026", daysLeft: 263 },
-    { name: "UPSC Mains 2026", date: "Sep 20, 2026", daysLeft: 381 },
-  ];
+  const dailyQuests = [
+    { id: 1, name: "Revise Chapter 5: Indian Polity", progress: 80, isComplete: false },
+    { id: 2, name: "Complete Daily Current Affairs Quiz", progress: 0, isComplete: false },
+    { id: 3, name: "Solve 15 Ancient History MCQs", progress: 100, isComplete: true },
+  ];
 
-  return (
-    <>
-      <style>{dashboardStyles}</style>
-      <main className="dashboard-main">
-        {/* Welcome Section */}
-        <section className="welcome-section">
-          <div className="welcome-text">
-            <h2>Welcome back, {userName}! 🚀</h2>
-            <p>Ready to conquer today?</p>
-          </div>
-          <div className="quick-action-buttons">
-            <button className="quick-btn primary">
-              <Play size={16} />
-              Start Daily Quiz
-            </button>
-            <button className="quick-btn secondary">
-              <BookOpen size={16} />
-              Continue Study
-            </button>
-          </div>
-        </section>
+  const userBadges = [
+    { id: 1, name: "History Hero", description: "Completed 10 history quests", icon: <Trophy size={40} color="#FFD700" />, progressToNext: 50 },
+    { id: 2, name: "Polity Pro", description: "Mastered Polity basics", icon: <Award size={40} color="#00FFD1" />, progressToNext: 80 },
+    { id: 3, name: "Daily Doyen", description: "Achieved a 7-day streak", icon: <Zap size={40} color="#FF6B6B" />, progressToNext: 100 },
+  ];
 
-        {/* Stats Dashboard */}
-        <section className="stats-dashboard">
-          <div className="stat-card energy-card">
-            <div className="stat-header">
-              <Zap className="stat-icon energy" />
-              <span className="stat-label">Energy</span>
-            </div>
-            <div className="energy-bar">
-              <div className="energy-fill" style={{ width: `${currentEnergy}%` }}></div>
-            </div>
-            <span className="stat-value">{currentEnergy}/100</span>
-          </div>
+  const dailyMission = { task: "Answer 3 doubts in the community to earn 100 coins!", reward: "100" };
 
-          <div className="stat-card streak-card">
-            <div className="stat-header">
-              <Award className="stat-icon streak" />
-              <span className="stat-label">Streak</span>
-            </div>
-            <div className="streak-display">
-              <span className="streak-number">{currentStreak}</span>
-              <span className="streak-unit">days</span>
-          </div>
-          </div>
+  const upcomingExams = [
+    { name: "UPSC Prelims 2026", daysLeft: 263 },
+    { name: "UPSC Mains 2026", daysLeft: 381 },
+  ];
 
-          <div className="stat-card coins-card">
-            <div className="stat-header">
-              <Star className="stat-icon coins" />
-              <span className="stat-label">Coins</span>
-            </div>
-            <span className="stat-value">{totalCoins.toLocaleString()}</span>
-          </div>
+  const subjectProgress = [
+    { subject: "History", completion: 60 },
+    { subject: "Polity", completion: 45 },
+    { subject: "Economy", completion: 30 },
+  ];
 
-          <div className="stat-card level-card">
-            <div className="stat-header">
-              <Trophy className="stat-icon level" />
-              <span className="stat-label">Level</span>
-            </div>
-            <span className="stat-value">{currentLevel}</span>
-          </div>
-        </section>
+  const lastTestAnalytics = { score: 78, weakSubjects: ["Economy", "Polity"] };
 
-        {/* Contests */}
-        <section className="content-card contests-card">
-          <div className="card-header">
-            <Trophy className="card-icon" />
-            <h3>Upcoming Contests</h3>
-          </div>
-          <div className="contests-list">
-            {upcomingContests.map((contest) => (
-              <div key={contest.id} className="contest-item">
-                <div className="contest-info">
-                  <h4>{contest.name}</h4>
-                  <span>{contest.date} • {contest.time}</span>
-              </div>
-                <button className="join-contest-btn">Join</button>
-              </div>
-            ))}
-          </div>
-        </section>
+  const nextContest = { name: "Weekly Mock Test", daysLeft: 2 };
 
-        {/* Exam Deadlines */}
-        <section className="content-card deadlines-card">
-          <div className="card-header">
-            <Calendar className="card-icon" />
-            <h3>Exam Deadlines</h3>
-          </div>
-          <div className="deadlines-list">
-            {nextExams.map((exam, index) => (
-              <div key={index} className="deadline-item">
-                <h4>{exam.name}</h4>
-                <p>{exam.date}</p>
-                <span>{exam.daysLeft} days left</span>
-              </div>
-            ))}
-          </div>
-        </section>
+  const bossBattle = { task: "Score 80+ in next Mock Test", reward: "500 Coins" };
 
-        {/* Chatbot Trigger */}
-        <div className="chatbot-trigger">
-          <button className="chatbot-btn">
-            <MessageCircle size={24} />
-            <span>Ask your AI Study Buddy</span>
-          </button>
-        </div>
-      </main>
-    </>
-  );
+  const personalGoals = [
+    { task: "Finish GS1", completion: 20 },
+    { task: "Finish Polity", completion: 50 },
+  ];
+
+  return (
+    <div className="dashboard-container">
+      {/* Left Sidebar */}
+      <motion.aside
+        className="dashboard-sidebar-left"
+        initial={{ x: -80, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="sidebar-header">
+          <div className="app-logo">📚</div>
+          <div className="app-title">VidyaAstra</div>
+        </div>
+        <nav className="sidebar-nav">
+          <Link to="/" className="nav-item-dashboard"><Home size={20} /> Home</Link>
+          <Link to="/dashboard" className="nav-item-dashboard active"><User size={20} /> Dashboard</Link>
+          <Link to="/roadmap" className="nav-item-dashboard"><Map size={20} /> Study Roadmap</Link>
+          <Link to="/tests" className="nav-item-dashboard"><ClipboardList size={20} /> Mock Tests</Link>
+          <Link to="/contests" className="nav-item-dashboard"><Trophy size={20} /> Contests</Link>
+          <Link to="/doubts" className="nav-item-dashboard"><MessageCircle size={20} /> Doubt Exchange</Link>
+          <Link to="/leaderboard" className="nav-item-dashboard"><Swords size={20} /> Leaderboard</Link> {/* Updated */}
+          <Link to="/settings" className="nav-item-dashboard"><Settings size={20} /> Settings</Link>
+        </nav>
+      </motion.aside>
+
+      {/* Main Content */}
+      <main className="dashboard-main-content">
+        <motion.header
+          className="main-content-header"
+          initial={{ y: -40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1>Welcome back, {userName}! 🚀</h1>
+          <p>Time to conquer your daily quests.</p>
+        </motion.header>
+
+        {/* Stats */}
+        <section className="stats-dashboard">
+          <motion.div className="stat-card energy-card" whileHover={{ scale: 1.05 }}>
+            <Zap size={24} /><h3>Energy</h3>
+            <div className="energy-bar"><div className="energy-fill" style={{ width: `${currentEnergy}%` }}></div></div>
+            <p>{currentEnergy}/100</p>
+          </motion.div>
+          <motion.div className="stat-card streak-card" whileHover={{ scale: 1.05 }}>
+            <Star size={24} /><h3>Streak</h3><p>{currentStreak} days</p>
+          </motion.div>
+          <motion.div className="stat-card coins-card" whileHover={{ scale: 1.05 }}>
+            <DollarSign size={24} /><h3>Coins</h3><p>{totalCoins.toLocaleString()}</p>
+          </motion.div>
+          <motion.div className="stat-card level-card" whileHover={{ scale: 1.05 }}>
+            <Trophy size={24} /><h3>Level</h3><p>{currentLevel}</p>
+          </motion.div>
+        </section>
+
+        {/* Daily Quests */}
+        <motion.section className="content-card roadmap-card" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+          <h2><Map size={20} /> Today's Quests</h2>
+          <div className="quest-list">
+            {dailyQuests.map(quest => (
+              <div key={quest.id} className="quest-item">
+                <div className="quest-details">
+                  <h4>{quest.name}</h4>
+                  <div className="quest-progress-bar">
+                    <div className="quest-progress-fill" style={{ width: `${quest.progress}%` }}></div>
+                  </div>
+                </div>
+                {quest.isComplete ? <CircleCheck size={24} color="#00FFD1" /> : <button className="quest-btn">Start</button>}
+              </div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Subject-wise Progress */}
+        <motion.section className="content-card subject-progress-card" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+          <h2>Study Progress</h2>
+          {subjectProgress.map((sub, idx) => (
+            <div key={idx} className="subject-progress-item">
+              <h4>{sub.subject}</h4>
+              <div className="quest-progress-bar">
+                <div className="quest-progress-fill" style={{ width: `${sub.completion}%` }}></div>
+              </div>
+              <p>{sub.completion}% complete</p>
+            </div>
+          ))}
+        </motion.section>
+
+        {/* Last Test Analytics */}
+        <motion.section className="content-card test-analytics-card" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }}>
+          <h2>Last Test Analytics</h2>
+          <p>Score: {lastTestAnalytics.score}%</p>
+          <p>Weak Subjects: {lastTestAnalytics.weakSubjects.join(", ")}</p>
+        </motion.section>
+
+        {/* Boss Battle */}
+        <motion.section className="content-card boss-battle-card" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
+          <h2>Boss Battle</h2>
+          <p>{bossBattle.task}</p>
+          <p>Reward: {bossBattle.reward}</p>
+        </motion.section>
+
+        {/* Achievements */}
+        <motion.section className="content-card achievements-card" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1 }}>
+          <h2><Award size={20} /> Achievements</h2>
+          <div className="badges-grid">
+            {userBadges.map(badge => (
+              <div key={badge.id} className="badge-item">
+                <div className="badge-icon">{badge.icon}</div>
+                <div className="badge-info">
+                  <h4>{badge.name}</h4>
+                  <p>{badge.description}</p>
+                  <p>Progress to next: {badge.progressToNext}%</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Personal Goals */}
+        <motion.section className="content-card personal-goals-card" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2 }}>
+          <h2>Personal Goals</h2>
+          {personalGoals.map((goal, idx) => (
+            <div key={idx} className="goal-item">
+              <h4>{goal.task}</h4>
+              <div className="quest-progress-bar">
+                <div className="quest-progress-fill" style={{ width: `${goal.completion}%` }}></div>
+              </div>
+              <p>{goal.completion}% completed</p>
+            </div>
+          ))}
+        </motion.section>
+      </main>
+
+      {/* Right Sidebar */}
+      <motion.aside className="dashboard-sidebar-right" initial={{ x: 80, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.6 }}>
+        {/* Calendar */}
+        <div className="sidebar-card calendar-card">
+          <Calendar
+            onChange={setCalendarDate}
+            value={calendarDate}
+            tileContent={({ date, view }) =>
+              view === "month" && streakDates.some(d => d.toDateString() === date.toDateString())
+                ? <span style={{ fontSize: "1.2rem" }}>🔥</span>
+                : null
+            }
+          />
+        </div>
+
+        {/* Upcoming UPSC Exams */}
+        <div className="sidebar-card deadline-card">
+          <h3><Clock size={20} /> Upcoming UPSC Exams</h3>
+          {upcomingExams.map((exam, index) => (
+            <div key={index} className="exam-countdown">
+              <h4>{exam.name}</h4>
+              <p className="countdown-days">{exam.daysLeft} <span>days left</span></p>
+            </div>
+          ))}
+        </div>
+
+        {/* Next Contest */}
+        <div className="sidebar-card contest-card">
+          <h3>Next Contest</h3>
+          <h4>{nextContest.name}</h4>
+          <p>{nextContest.daysLeft} days left</p>
+        </div>
+
+        {/* Daily Mission */}
+        <div className="sidebar-card mission-card">
+          <h3>Daily Mission</h3>
+          <p>{dailyMission.task}</p>
+          <div className="mission-reward"><DollarSign size={20} color="#FFD700" /> +{dailyMission.reward}</div>
+        </div>
+
+        {/* AI Buddy */}
+        <div className="sidebar-card ai-buddy-card">
+          <h3><MessageCircle size={20} /> AI Study Buddy</h3>
+          <p>
+            Hi, {userName}! You've got this. Your current affairs revision is looking good. Keep up the streak!
+          </p>
+        </div>
+      </motion.aside>
+    </div>
+  );
 };
 
 export default DashboardUpsc;

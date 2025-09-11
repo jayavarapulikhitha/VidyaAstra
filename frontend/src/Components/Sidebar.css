@@ -1,0 +1,86 @@
+/* Sidebar.css */
+
+/* Color Variables */
+:root {
+  --background-dark: #121212;
+  --surface-dark: #1e1e1e;
+  --card-dark: #2c2c2c;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --accent-blue: #007bff;
+  --border-color: #444;
+}
+
+/* Sidebar Styling */
+.dashboard-sidebar-left {
+  width: 250px;
+  background-color: var(--surface-dark);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  transition: width 0.3s ease;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.app-logo {
+  font-size: 2.5rem;
+  margin-right: 10px;
+}
+
+.app-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-item svg {
+  margin-right: 12px;
+}
+
+.nav-item:hover {
+  background-color: #383838;
+  color: var(--text-primary);
+}
+
+.nav-item.active {
+  background-color: var(--accent-blue);
+  color: #fff;
+  font-weight: 600;
+}
+
+.nav-separator {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 15px 0;
+}
+
+/* If you need to include the sidebar directly in your App.js,
+   you can define these styles in a global CSS file instead. */
