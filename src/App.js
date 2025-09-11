@@ -8,6 +8,12 @@ import SignUpPage from './Components/SignUpPage';
 import StreamSelectionPage from './Components/StreamSelectionPage';
 import HomePage from './Components/HomePageUpsc';
 import DashboardUpsc from './Components/DashboardUpsc';
+import HomeContest from './Components/HomeContest';
+import HomeRoadMap from './Components/HomeRoadMap';
+import HomeDoubts from './Components/HomeDoubts';
+import MockTests from './Components/MockTest';
+
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -39,7 +45,12 @@ function App() {
       />
       <Route path="/home" element={<HomePage />} />
       <Route path="/dashboard-upsc" element={<DashboardUpsc />} />
-      <Route path="*" element={<LandingPage />} />
+ 
+          <Route path="/contests" element={<HomeContest />} />  
+              <Route path="/roadmap" element={<HomeRoadMap />} />
+                  <Route path="/doubts" element={<HomeDoubts />} />
+                      <Route path="/mock-tests" element={<MockTests />} />
+
     </Routes>
   );
 }
