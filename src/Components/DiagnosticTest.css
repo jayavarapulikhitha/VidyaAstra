@@ -1,0 +1,38 @@
+.diagnostic-test-container {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .diagnostic-test-container {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .diagnostic-test-container {
+    padding: 2rem;
+  }
+}
+
+.card {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  background: #1e293b;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.page-title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #67e8f9;
+  margin-bottom: 1.5rem;
+}
+
+.stage-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #22d3ee;
+  margin-bottom: 1rem;
+}

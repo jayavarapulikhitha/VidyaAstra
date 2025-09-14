@@ -13,37 +13,46 @@ const LoginPage = () => {
         e.preventDefault();
         setError('');
 
-        console.log('Attempting email login with:', email, password);
-
         try {
-            const isLoginSuccessful = true; // Placeholder for backend logic
-            if (isLoginSuccessful) {
-                console.log('Email login successful!');
-                navigate('/dashboard');
+            const res = await fetch('http://localhost:5000/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                // Save token and user info
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('userId', data.user.id);
+
+                // Redirect based on first-time flag
+                if (data.user.isFirstTime) {
+                    navigate('/stream-selection');
+                } else {
+                    navigate('/home');
+                }
             } else {
-                setError('Invalid email or password.');
+                setError(data.message || 'Login failed');
             }
         } catch (err) {
-            setError('Login failed. Please check your credentials.');
+            setError('Server error. Try again.');
             console.error(err);
         }
     };
 
     const handleSocialLogin = (provider) => {
-        console.log(`Attempting login with ${provider}...`);
-        setTimeout(() => {
-            console.log(`${provider} login successful!`);
-            navigate('/dashboard');
-        }, 1000);
+        console.log(`Social login clicked: ${provider}`);
+        // You can integrate OAuth later
+        // For now, navigate to stream selection or home as placeholder
+        const isFirstTime = !localStorage.getItem('hasSelectedStream');
+        if (isFirstTime) navigate('/stream-selection');
+        else navigate('/home');
     };
 
     return (
         <div className="login-container">
-            {/* Optional background decorations */}
-            <div className="star-field"></div>
-            <div className="gradient-overlay"></div>
-            <div className="abstract-pattern-overlay"></div>
-
             <div className="login-card">
                 <div className="login-header">
                     <img src={appLogo} alt="Logo" className="login-logo" />
@@ -58,15 +67,15 @@ const LoginPage = () => {
                     <input
                         type="email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                     <input
                         type="password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
                         placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <button type="submit" className="login-button">Sign In</button>
@@ -77,15 +86,9 @@ const LoginPage = () => {
                 </div>
 
                 <div className="social-login-buttons">
-                    <button className="social-button google" onClick={() => handleSocialLogin('Google')}>
-                        Sign in with Google
-                    </button>
-                    <button className="social-button linkedin" onClick={() => handleSocialLogin('LinkedIn')}>
-                        Sign in with LinkedIn
-                    </button>
-                    <button className="social-button github" onClick={() => handleSocialLogin('GitHub')}>
-                        Sign in with GitHub
-                    </button>
+                    <button className="social-button google" onClick={() => handleSocialLogin('Google')}>Sign in with Google</button>
+                    <button className="social-button linkedin" onClick={() => handleSocialLogin('LinkedIn')}>Sign in with LinkedIn</button>
+                    <button className="social-button github" onClick={() => handleSocialLogin('GitHub')}>Sign in with GitHub</button>
                 </div>
             </div>
         </div>

@@ -1,4 +1,3 @@
-// src/Components/SignUpPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import appLogo from '../assets/app-logo.png';
@@ -13,28 +12,43 @@ const SignUpPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleEmailSignUp = (e) => {
+  const handleEmailSignUp = async (e) => {
     e.preventDefault();
     setError('');
 
-    // Replace with backend call
-    const isSignUpSuccessful = true;
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password })
+      });
 
-    if (isSignUpSuccessful) {
-      // Save login status
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.removeItem('selectedStream'); // Ensure stream is selected later
-      navigate('/stream-selection'); // redirect to stream selection
-    } else {
-      setError('Sign Up failed. Try again.');
+      const data = await res.json();
+
+      if (res.ok) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('userId', data.user.id);
+        navigate('/stream-selection'); // First-time users go to stream selection
+      } else {
+        setError(data.message || 'Signup failed');
+      }
+    } catch (err) {
+      setError('Server error. Please try again.');
     }
   };
 
-  const handleSocialSignUp = (provider) => {
-    console.log(`Sign Up with ${provider}`);
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.removeItem('selectedStream');
-    setTimeout(() => navigate('/stream-selection'), 500);
+  const handleSocialSignUp = async (provider) => {
+    console.log(`Sign Up with ${provider} clicked`);
+
+    // Placeholder logic for social signup (you can integrate real OAuth later)
+    const isSocialSignUpSuccessful = true;
+    if (isSocialSignUpSuccessful) {
+      localStorage.setItem('token', 'dummy-social-token');
+      localStorage.setItem('userId', 'dummy-user-id');
+      navigate('/stream-selection'); // First-time users go to stream selection
+    } else {
+      setError('Social Sign Up failed');
+    }
   };
 
   return (
