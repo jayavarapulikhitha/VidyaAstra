@@ -2,111 +2,117 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import appLogo from '../assets/app-logo.png';
-import './LoginPage.css'; 
+import './LoginPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 
-const SignUpPage = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+const SignUpPage = ({ setIsLoggedIn }) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-    const handleEmailSignUp = async (e) => {
-        e.preventDefault();
-        setError('');
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:9000';
 
-        try {
-            const response = await fetch('http://localhost:3000/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name, email, password }),
-            });
+  const handleEmailSignUp = async (e) => {
+    e.preventDefault();
+    setError('');
 
-            const data = await response.json();
+    try {
+      const response = await fetch(`${API_URL}/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
 
-            if (response.ok) {
-                console.log('Signup successful:', data);
-                // Navigate to the login page on success
-                navigate('/'); 
-            } else {
-                setError(data.error || 'Sign Up failed. Try again.');
-            }
-        } catch (err) {
-            // This handles network errors
-            setError('A network error occurred. Please try again later.');
-            console.error('Signup error:', err);
-        }
-    };
+      const data = await response.json();
 
-    const handleSocialSignUp = (provider) => {
-        console.log(`Sign Up with ${provider}`);
+      if (response.ok) {
+        // mark as logged in (for dev flow)
         localStorage.setItem('isLoggedIn', 'true');
-        localStorage.removeItem('selectedStream');
-        setTimeout(() => navigate('/stream-selection'), 500);
-    };
+        localStorage.setItem('user', JSON.stringify({ name, email }));
+        if (setIsLoggedIn) setIsLoggedIn(true);
 
-    return (
-        <div className="login-container">
-            <div className="star-field"></div>
-            <div className="gradient-overlay"></div>
-            <div className="abstract-pattern-overlay"></div>
+        // redirect to stream selection (as you expected)
+        navigate('/stream-selection');
+      } else {
+        setError(data.error || 'Sign Up failed. Try again.');
+      }
+    } catch (err) {
+      console.error('Signup error:', err);
+      setError('A network error occurred. Please try again later.');
+    }
+  };
 
-            <div className="login-card">
-                <img src={appLogo} alt="App Logo" className="login-logo" />
-                <h2 className="login-title">Create Your Account</h2>
-                <p className="login-subtitle">Join the adventure today</p>
+  const handleSocialSignUp = (provider) => {
+    console.log(`Sign Up with ${provider}`);
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('user', JSON.stringify({ name: `${provider} User`, email: `${provider.toLowerCase()}@example.com` }));
+    if (setIsLoggedIn) setIsLoggedIn(true);
 
-                {error && <div className="login-error-message">{error}</div>}
+    // social signup -> stream selection
+    navigate('/stream-selection');
+  };
 
-                <form onSubmit={handleEmailSignUp} className="login-form">
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Full Name"
-                        required
-                    />
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Email Address"
-                        required
-                    />
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Password"
-                        required
-                    />
-                    <button type="submit" className="login-button email-login-btn">
-                        Sign Up with Email
-                    </button>
-                </form>
+  return (
+    <div className="login-container">
+      <div className="star-field"></div>
+      <div className="gradient-overlay"></div>
+      <div className="abstract-pattern-overlay"></div>
 
-                <div className="social-divider">
-                    <hr /><span>OR</span><hr />
-                </div>
+      <div className="login-card">
+        <img src={appLogo} alt="App Logo" className="login-logo" />
+        <h2 className="login-title">Create Your Account</h2>
+        <p className="login-subtitle">Join the adventure today</p>
 
-                <div className="social-login-buttons">
-                    <button className="social-button google-btn" onClick={() => handleSocialSignUp('Google')}>
-                        <FontAwesomeIcon icon={faGoogle} /> Sign Up with Google
-                    </button>
-                    <button className="social-button linkedin-btn" onClick={() => handleSocialSignUp('LinkedIn')}>
-                        <FontAwesomeIcon icon={faLinkedin} /> Sign Up with LinkedIn
-                    </button>
-                    <button className="social-button github-btn" onClick={() => handleSocialSignUp('GitHub')}>
-                        <FontAwesomeIcon icon={faGithub} /> Sign Up with GitHub
-                    </button>
-                </div>
-            </div>
+        {error && <div className="login-error-message">{error}</div>}
+
+        <form onSubmit={handleEmailSignUp} className="login-form">
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Full Name"
+            required
+          />
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email Address"
+            required
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+          />
+          <button type="submit" className="login-button email-login-btn">
+            Sign Up with Email
+          </button>
+        </form>
+
+        <div className="social-divider">
+          <hr /><span>OR</span><hr />
         </div>
-    );
+
+        <div className="social-login-buttons">
+          <button className="social-button google-btn" onClick={() => handleSocialSignUp('Google')}>
+            <FontAwesomeIcon icon={faGoogle} /> <span>Sign Up with Google</span>
+          </button>
+          <button className="social-button linkedin-btn" onClick={() => handleSocialSignUp('LinkedIn')}>
+            <FontAwesomeIcon icon={faLinkedin} /> <span>Sign Up with LinkedIn</span>
+          </button>
+          <button className="social-button github-btn" onClick={() => handleSocialSignUp('GitHub')}>
+            <FontAwesomeIcon icon={faGithub} /> <span>Sign Up with GitHub</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default SignUpPage;

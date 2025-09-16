@@ -2,12 +2,12 @@ import React from "react";
 import "./HomeContest.css";
 
 const HomeContest = () => (
-  <div>
-    <h1 className="page-title">The Colosseum</h1>
+  <div className="arena-container">
+    <h1 className="page-title">🎮 The Colosseum</h1>
 
     {/* Live Contest */}
     <div className="section">
-      <h2 className="section-heading">Live Now</h2>
+      <h2 className="section-heading">⚡ Live Now</h2>
       <div className="live-card">
         <div className="live-card-header">
           <div>
@@ -22,13 +22,13 @@ const HomeContest = () => (
         <p className="live-timer">
           Ends in: <span className="timer-value">08:45</span>
         </p>
-        <button className="btn-primary">Join Immediately</button>
+        <button className="btn-primary">🔥 Join Battle</button>
       </div>
     </div>
 
     {/* Upcoming Contests */}
     <div>
-      <h2 className="section-heading">Upcoming Battles</h2>
+      <h2 className="section-heading">🗡 Upcoming Battles</h2>
       <div className="upcoming-list">
         <div className="upcoming-card">
           <div>
@@ -37,7 +37,7 @@ const HomeContest = () => (
               Starts: Sunday, 7:00 PM | 50 Questions, 60 Mins
             </p>
           </div>
-          <button className="btn-secondary">Register</button>
+          <button className="btn-secondary">⚔ Register</button>
         </div>
 
         <div className="upcoming-card">
@@ -47,7 +47,7 @@ const HomeContest = () => (
               Starts: Sept 30, 9:00 AM | 100 Questions, 120 Mins
             </p>
           </div>
-          <button className="btn-secondary">Register</button>
+          <button className="btn-secondary">⚔ Register</button>
         </div>
       </div>
     </div>
