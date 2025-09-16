@@ -1,4 +1,3 @@
-// src/Components/SignUpPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import appLogo from '../assets/app-logo.png';
@@ -15,6 +14,7 @@ const SignUpPage = ({ setIsLoggedIn }) => {
 
   const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:9000';
 
+  // Email signup
   const handleEmailSignUp = async (e) => {
     e.preventDefault();
     setError('');
@@ -29,12 +29,10 @@ const SignUpPage = ({ setIsLoggedIn }) => {
       const data = await response.json();
 
       if (response.ok) {
-        // mark as logged in (for dev flow)
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('user', JSON.stringify({ name, email }));
         if (setIsLoggedIn) setIsLoggedIn(true);
 
-        // redirect to stream selection (as you expected)
         navigate('/stream-selection');
       } else {
         setError(data.error || 'Sign Up failed. Try again.');
@@ -45,14 +43,30 @@ const SignUpPage = ({ setIsLoggedIn }) => {
     }
   };
 
-  const handleSocialSignUp = (provider) => {
-    console.log(`Sign Up with ${provider}`);
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('user', JSON.stringify({ name: `${provider} User`, email: `${provider.toLowerCase()}@example.com` }));
-    if (setIsLoggedIn) setIsLoggedIn(true);
+  // Social signup
+  const handleSocialSignUp = async (provider) => {
+    console.log(`Sign Up with ${provider} clicked`);
+    setError('');
 
-    // social signup -> stream selection
-    navigate('/stream-selection');
+    try {
+      // Placeholder logic for social signup (replace with real OAuth later)
+      const isSocialSignUpSuccessful = true;
+
+      if (isSocialSignUpSuccessful) {
+        localStorage.setItem('token', 'dummy-social-token');
+        localStorage.setItem('userId', 'dummy-user-id');
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('user', JSON.stringify({ name: `${provider} User`, email: `${provider.toLowerCase()}@example.com` }));
+        if (setIsLoggedIn) setIsLoggedIn(true);
+
+        navigate('/stream-selection');
+      } else {
+        setError('Social Sign Up failed');
+      }
+    } catch (err) {
+      console.error('Social signup error:', err);
+      setError('Server error. Please try again.');
+    }
   };
 
   return (

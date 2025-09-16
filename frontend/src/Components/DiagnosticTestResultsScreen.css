@@ -1,0 +1,157 @@
+.result-screen {
+  text-align: center;
+  padding: 2rem;
+}
+
+.score-container {
+  margin: 2rem 0;
+}
+
+.score-meter {
+  width: 100%;
+  background: #334155;
+  border-radius: 9999px;
+  height: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.score-bar {
+  height: 100%;
+  background: linear-gradient(to right, #4ade80, #22d3ee);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 1s ease-out;
+}
+
+.score-text {
+  color: white;
+  font-weight: bold;
+  font-size: 1.125rem;
+}
+
+.knowledge-level-container {
+  margin-top: 1rem;
+}
+
+.knowledge-label {
+  color: #cbd5e1;
+  font-size: 1.125rem;
+}
+
+.knowledge-level {
+  font-size: 2.25rem;
+  font-weight: bold;
+  transition: opacity 1s ease;
+}
+
+.badge-container {
+  margin: 2rem 0;
+}
+
+.starter-badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(234, 179, 8, 0.2);
+  border: 2px solid #eab308;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 1; }
+}
+
+.badge-icon {
+  font-size: 2rem;
+  margin-right: 0.75rem;
+}
+
+.badge-content h4 {
+  font-weight: bold;
+  color: #fef08a;
+  margin-bottom: 0.25rem;
+}
+
+.badge-content p {
+  color: #fef08a;
+}
+
+.analysis-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .analysis-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.strengths-container, .weaknesses-container {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.strengths-container {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid #4ade80;
+}
+
+.weaknesses-container {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid #f87171;
+}
+
+.strengths-container h4, .weaknesses-container h4 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.strengths-container h4 {
+  color: #4ade80;
+}
+
+.weaknesses-container h4 {
+  color: #f87171;
+}
+
+.strengths-container ul, .weaknesses-container ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.strengths-container li {
+  color: #bbf7d0;
+}
+
+.weaknesses-container li {
+  color: #fecaca;
+}
+
+.generate-button {
+  background: #0891b2;
+  color: white;
+  font-weight: bold;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-size: 1.125rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.generate-button:hover {
+  background: #0e7490;
+  transform: scale(1.05);
+}

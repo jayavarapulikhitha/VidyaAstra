@@ -1,0 +1,112 @@
+.test-screen {
+  padding: 1.5rem;
+}
+
+.test-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.question-counter {
+  background: rgba(8, 145, 178, 0.2);
+  color: #22d3ee;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+}
+
+.progress-container {
+  width: 100%;
+  background: #334155;
+  border-radius: 9999px;
+  height: 0.5rem;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #0891b2;
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+.question-meta {
+  margin-bottom: 1.5rem;
+}
+
+.question-category {
+  color: #22d3ee;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.question-text {
+  color: #e2e8f0;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.roadmap-checkbox {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  background: rgba(15, 23, 42, 0.5);
+  cursor: pointer;
+  transition: background 0.3s ease;
+  border: 1px solid #334155;
+}
+
+.roadmap-checkbox:hover {
+  background: rgba(51, 65, 85, 0.5);
+}
+
+.roadmap-checkbox.selected {
+  background: rgba(34, 211, 238, 0.2);
+  border-color: #22d3ee;
+}
+
+.checkbox {
+  height: 1.25rem;
+  width: 1.25rem;
+  border-radius: 0.25rem;
+  border: 1px solid #d1d5db;
+  accent-color: #0891b2;
+}
+
+.checkbox-label {
+  margin-left: 0.75rem;
+  color: #cbd5e1;
+}
+
+.test-footer {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submit-button {
+  background: #10b981;
+  color: white;
+  font-weight: bold;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+  background: #059669;
+  transform: scale(1.05);
+}
