@@ -1,4 +1,3 @@
-// src/Components/HomePageUpsc.js
 import React, { useState, useEffect, useRef } from "react";
 import {
   Trophy,
@@ -146,19 +145,19 @@ const HomePageUpsc = () => {
         <h2>Welcome back, {userName}!</h2>
         <p>Ready to conquer today?</p>
         <div className="quick-action-buttons">
-          <button className="quick-btn">
+          <button className="quick-btn" onClick={() => navigate("/mock-tests")}>
             <ClipboardList size={20} />
             Take Mock Test
           </button>
-          <button className="quick-btn">
+          <button className="quick-btn" onClick={() => navigate("/contests")}>
             <Trophy size={20} />
             Join Contest
           </button>
-          <button className="quick-btn">
+          <button className="quick-btn" onClick={() => navigate("/roadmap")}>
             <Map size={20} />
             Roadmap
           </button>
-          <button className="quick-btn">
+          <button className="quick-btn" onClick={() => navigate("/doubts")}>
             <MessageCircle size={20} />
             Doubts
           </button>

@@ -20,7 +20,8 @@ import {
   User,
   Home
 } from "lucide-react";
-import "./DashboardUpsc.css";
+// // import ".D:/VidyaAstra/frontend/src/Components/DashboardUpsc.css";
+ import "./DashboardUpsc.css";
 
 const DashboardUpsc = () => {
   const [userName] = useState("Arjun");

@@ -1,7 +1,10 @@
+// src/Components/LoginPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import appLogo from '../assets/app-logo.png';
 import './LoginPage.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -13,18 +16,30 @@ const LoginPage = () => {
         e.preventDefault();
         setError('');
 
-        console.log('Attempting email login with:', email, password);
-
         try {
-            const isLoginSuccessful = true; // Placeholder for backend logic
-            if (isLoginSuccessful) {
-                console.log('Email login successful!');
+            const response = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+            
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('Login successful!', data);
+                // Store the JWT token and user info
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                
+                // Navigate to the dashboard
                 navigate('/dashboard');
             } else {
-                setError('Invalid email or password.');
+                setError(data.error || 'Invalid email or password.');
             }
         } catch (err) {
-            setError('Login failed. Please check your credentials.');
+            setError('A network error occurred. Please try again later.');
             console.error(err);
         }
     };
@@ -33,7 +48,7 @@ const LoginPage = () => {
         console.log(`Attempting login with ${provider}...`);
         setTimeout(() => {
             console.log(`${provider} login successful!`);
-            navigate('/dashboard');
+            navigate('/dashboard-upsc');
         }, 1000);
     };
 

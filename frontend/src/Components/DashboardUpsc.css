@@ -1,38 +1,46 @@
-/* ===== Main Dashboard Layout ===== */
+/* ===== General Dashboard Layout ===== */
 .dashboard-container {
   display: flex;
   min-height: 100vh;
+  gap: 20px;
   background: linear-gradient(135deg, #0F0C29 0%, #302B63 100%);
   color: #E0FBFC;
-  gap: 20px;
-  padding: 20px;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
 }
 
 /* ===== Left Sidebar ===== */
 .dashboard-sidebar-left {
-  width: 250px;
-  padding: 20px;
-  background: rgba(15, 12, 41, 0.8);
+  width: 240px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, #1B1A2F, #2E2A55);
   border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(12px);
-  transition: transform 0.3s ease;
-}
-
-.dashboard-sidebar-left:hover {
-  transform: translateY(-3px);
+  padding: 25px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 .sidebar-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 35px;
+  gap: 10px;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.app-logo {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.app-title {
   font-weight: 700;
   font-size: 1.4rem;
-  color: #FFD700;
-  letter-spacing: 1px;
+  background: linear-gradient(90deg, #FFD700, #00FFD1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .sidebar-nav {
@@ -44,310 +52,275 @@
 .nav-item-dashboard {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 15px;
-  border-radius: 12px;
+  gap: 10px;
   color: #E0FBFC;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  padding: 10px 15px;
+  border-radius: 15px;
   transition: all 0.3s ease;
 }
 
-.nav-item-dashboard:hover,
-.nav-item-dashboard.active {
-  background: linear-gradient(135deg, #FFD700, #FF6B6B);
+.nav-item-dashboard:hover {
+  background: linear-gradient(90deg, #FF6B6B, #FFD700);
   color: #0F0C29;
-  box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
-  transform: translateX(6px);
+  transform: scale(1.03);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+.nav-item-dashboard.active {
+  background: linear-gradient(90deg, #00FFD1, #4C6EF5);
+  color: #0F0C29;
+  box-shadow: 0 0 12px rgba(0, 255, 209, 0.5);
+}
+
+/* ===== Right Sidebar ===== */
+.dashboard-sidebar-right {
+  width: 280px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, #1B1A2F, #2E2A55);
+  border-radius: 20px;
+  padding: 25px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  overflow-y: auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar-card {
+  background: rgba(24, 24, 48, 0.85);
+  padding: 15px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,255,209,0.25);
+  backdrop-filter: blur(5px);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.sidebar-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(255,255,255,0.3);
 }
 
 /* ===== Main Content ===== */
 .dashboard-main-content {
-  flex-grow: 1;
+  flex: 1;
+  padding: 25px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 25px;
+  overflow-y: auto;
 }
 
+/* Header */
 .main-content-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 8px;
-  background: linear-gradient(90deg, #FFD700, #00FFD1);
+  font-size: 2rem;
+  background: linear-gradient(90deg, #FFD700, #FF6B6B);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+  text-shadow: 0 0 5px #FFD700, 0 0 15px #FF6B6B;
 }
 
 .main-content-header p {
-  color: rgba(224, 251, 252, 0.8);
-  font-size: 1.05rem;
+  font-size: 1rem;
+  color: #E0FBFC;
+  text-shadow: 0 0 3px #00FFD1;
 }
 
-/* ===== Stats Dashboard ===== */
+/* ===== UPSC Upcoming Exams Section ===== */
+.upsc-exams-card {
+  background: linear-gradient(135deg, #4C6EF5, #00C2B3);
+  padding: 20px;
+  border-radius: 20px;
+  color: #FFF;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(0,255,209,0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.upsc-exams-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+}
+
+.upsc-exams-card h2::before {
+  content: "📝 "; /* Exam emoji */
+}
+
+/* Stats Cards */
 .stats-dashboard {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
 }
 
 .stat-card {
-  background: rgba(48, 43, 99, 0.65);
-  padding: 25px;
-  border-radius: 22px;
+  background: rgba(30, 30, 60, 0.85);
+  padding: 20px;
+  border-radius: 18px;
   text-align: center;
-  color: #E0FBFC;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-  position: relative;
-  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,255,209,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .stat-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(255,255,255,0.3);
 }
 
 .stat-card h3 {
-  margin-top: 12px;
-  font-size: 1.2rem;
-  color: #FFD700;
+  margin: 10px 0 5px;
+  font-size: 1.1rem;
 }
 
-.stat-card p {
-  font-size: 1.6rem;
+/* ===== Calendar Section ===== */
+.calendar-section {
+  background: linear-gradient(135deg, #FFD166, #EF476F);
+  padding: 20px;
+  border-radius: 20px;
+  color: #1B1A2F;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.calendar-section h2::before {
+  content: "📅 "; /* Calendar emoji */
+}
+
+.calendar-day {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  text-align: center;
+  background: rgba(24,24,48,0.8);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(255,255,255,0.25);
+}
+
+.calendar-day.today {
+  background: linear-gradient(90deg, #00C2B3, #4C6EF5);
+  color: #FFF;
   font-weight: 700;
-  margin: 8px 0 0;
+  box-shadow: 0 6px 20px rgba(0,255,209,0.3);
 }
 
-/* ===== Energy Bar ===== */
+/* Energy bar */
 .energy-bar {
   height: 12px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255,255,255,0.1);
   border-radius: 6px;
-  margin-top: 14px;
   overflow: hidden;
+  margin-top: 8px;
 }
 
 .energy-fill {
   height: 100%;
   background: linear-gradient(90deg, #FFD700, #FF6B6B);
   border-radius: 6px;
-  transition: width 0.4s ease;
+  transition: width 0.5s ease-in-out;
 }
 
-/* ===== Content & Sidebar Cards ===== */
-.content-card,
-.sidebar-card {
-  background: rgba(48, 43, 99, 0.65);
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease;
+/* Content Cards */
+.content-card {
+  background: rgba(30, 30, 60, 0.85);
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 15px rgba(0,255,209,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.content-card:hover,
-.sidebar-card:hover {
-  transform: translateY(-5px);
+.content-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(255,255,255,0.3);
 }
 
-.content-card h2,
-.sidebar-card h3 {
+.content-card h2 {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 0 0 20px;
-  color: #FFD700;
-  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
 }
 
-/* ===== Quests ===== */
-.quest-item {
+.content-card h2::before {
+  content: "⭐ "; /* Badge/Highlight emoji */
+}
+
+/* Quest/Progress bars */
+.quest-progress-bar {
+  height: 10px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 6px;
+  margin: 8px 0;
+  overflow: hidden;
+}
+
+.quest-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD700, #FF6B6B);
+  border-radius: 6px;
+  transition: width 0.5s ease-in-out;
+}
+
+/* Badges Grid */
+.badges-grid {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 15px;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.badge-item {
+  background: rgba(0,0,0,0.2);
+  padding: 10px;
   border-radius: 15px;
-  transition: background 0.3s ease;
+  flex: 1 1 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 }
 
-.quest-item:hover {
-  background: rgba(255, 255, 255, 0.12);
+.badge-icon {
+  padding: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
 }
 
+/* Buttons */
 .quest-btn {
-  background: linear-gradient(90deg, #FF6B6B, #FFD700);
-  color: #0F0C29;
+  background: linear-gradient(90deg, #00C2B3, #4C6EF5);
   border: none;
-  padding: 8px 18px;
-  border-radius: 20px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  color: #FFF;
+  font-weight: 700;
   cursor: pointer;
-  font-weight: 600;
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .quest-btn:hover {
   transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0,255,209,0.4);
 }
 
-/* ===== Achievements ===== */
-.badge-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 15px;
-  border-radius: 15px;
-  transition: transform 0.3s ease;
-}
-
-.badge-item:hover {
-  transform: translateY(-6px);
-  background: rgba(255, 215, 0, 0.15);
-}
-
-/* ===== Right Sidebar ===== */
-.dashboard-sidebar-right {
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 1200px) {
+/* Responsive */
+@media (max-width: 1024px) {
   .dashboard-container {
     flex-direction: column;
   }
+
   .dashboard-sidebar-left,
   .dashboard-sidebar-right {
     width: 100%;
-    order: -1;
+    flex-direction: row;
+    overflow-x: auto;
   }
-}
 
-@media (max-width: 768px) {
   .stats-dashboard {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-.sidebar-card.calendar-card {
-  background: rgba(48, 43, 99, 0.65);
-  padding: 15px;
-  border-radius: 20px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-  color: #E0FBFC;
-}
-
-.react-calendar {
-  border: none;
-  width: 100%;
-  color: #E0FBFC;
-  background: transparent;
-}
-
-.react-calendar__tile {
-  background: transparent;
-  border-radius: 8px;
-  padding: 5px 0;
-  font-size: 0.8rem;
-  color: #E0FBFC;
-}
-
-.react-calendar__tile--now {
-  border: 1px solid #FFD700;
-  border-radius: 50%;
-  background: rgba(255, 215, 0, 0.15);
-}
-
-/* ===== Right Sidebar Calendar Updates ===== */
-.sidebar-card.calendar-card {
-  background: rgba(48, 43, 99, 0.65);
-  padding: 15px;
-  border-radius: 20px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-  color: #E0FBFC;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* React Calendar Styles */
-.react-calendar {
-  width: 100%;
-  max-width: 250px;
-  background: rgba(48, 43, 99, 0.3);
-  color: #E0FBFC;
-  border: none;
-  border-radius: 15px;
-  padding: 10px;
-  font-family: "Poppins", sans-serif;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.react-calendar__navigation {
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.react-calendar__navigation button {
-  color: #FFD700;
-  background: transparent;
-  border: none;
-  font-weight: 600;
-  border-radius: 8px;
-  padding: 5px 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.react-calendar__navigation button:hover {
-  background: rgba(255, 215, 0, 0.2);
-}
-
-.react-calendar__month-view__weekdays {
-  text-align: center;
-  font-weight: 600;
-  color: #FFD700;
-  margin-bottom: 5px;
-}
-
-.react-calendar__tile {
-  background: transparent;
-  border-radius: 8px;
-  padding: 5px 0;
-  font-size: 0.8rem;
-  color: #E0FBFC;
-  transition: all 0.2s ease;
-}
-
-.react-calendar__tile:hover {
-  background: rgba(255, 215, 0, 0.2);
-  color: #0F0C29;
-  transform: scale(1.1);
-}
-
-.react-calendar__tile--now {
-  border: 1px solid #FFD700;
-  border-radius: 50%;
-  background: rgba(255, 215, 0, 0.15);
-  color: #FFD700;
-}
-
-.react-calendar__tile--active {
-  background: linear-gradient(90deg, #FFD700, #FF6B6B);
-  color: #0F0C29;
-  border-radius: 50%;
-}
-
-/* Adjust spacing for mobile */
-@media (max-width: 768px) {
-  .sidebar-card.calendar-card {
-    max-width: 100%;
-  }
-  .react-calendar {
-    max-width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 }
